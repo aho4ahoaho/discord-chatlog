@@ -8,7 +8,7 @@ try:
 except:
     exit()
 
-client = discord.Client()
+client = discord.Client(status="情報開示請求に応じてチャットのログを開示します。")
 
 @client.event
 async def on_ready():
