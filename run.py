@@ -8,11 +8,12 @@ try:
 except:
     exit()
 
-client = discord.Client(status="情報開示請求に応じてチャットのログを開示します。")
+client = discord.Client()
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    await client.change_presence(activity=discord.Game("情報開示請求に反応してチャットのログを開示します。"))
     if not os.path.isdir("logs"):
         os.mkdir("logs")
 
