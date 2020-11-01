@@ -29,5 +29,13 @@ async def on_message(message):
     if message.content.startswith("情報開示請求"):
         await message.channel.send(content="{0:%Y-%m-%d %H:%M:%S}".format(datetime.datetime.now())+"時点でのチャットログ",file=discord.File(os.getcwd()+"/"+filepath,filename=message.channel.name+".txt"),delete_after=300)
 
-
-client.run(sys.argv[1])
+try:
+    with open("token","r") as token:
+        client.run(token.read())
+except:
+    try:
+        client.run(sys.argv[1])
+    except:
+        with open("token","a") as token:
+            token.write("")
+        print("tokenがありません")
