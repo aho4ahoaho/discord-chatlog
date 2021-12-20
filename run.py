@@ -5,7 +5,6 @@ import sys
 
 client = discord.Client()
 appdir = os.path.dirname(os.path.abspath(__file__))
-print(appdir)
 
 @client.event
 async def on_ready():
