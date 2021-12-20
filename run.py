@@ -4,6 +4,8 @@ import os
 import sys
 
 client = discord.Client()
+appdir = os.path.dirname(os.path.abspath(__file__))
+print(appdir)
 
 @client.event
 async def on_ready():
@@ -12,8 +14,8 @@ async def on_ready():
     await client.change_presence(activity=discord.Game("情報開示請求に反応してチャットのログを開示します。"))
     #logsフォルダがなければ生成
 
-    if not os.path.isdir(os.path.dirname(__file__)+"/logs"):
-        os.mkdir(os.path.dirname(__file__)+"/logs")
+    if not os.path.isdir(appdir+"/logs"):
+        os.mkdir(appdir+"/logs")
 
 @client.event
 async def on_message(message):
@@ -22,7 +24,7 @@ async def on_message(message):
         return
 
     #ログがなければ生成、あれば追記
-    filepath = os.path.dirname(__file__)+"/logs/"+str(message.channel.id)+".txt"
+    filepath = appdir+"/logs/"+str(message.channel.id)+".txt"
     with open(filepath, mode='a') as f:
         #Botにはハッシュ値が無いため分岐
         if message.author.avatar != None:
@@ -39,12 +41,12 @@ async def on_message(message):
 
 #トークン読み込み、なければ引数、駄目なら警告を返して終了
 try:
-    with open(os.path.dirname(__file__)+"/token","r") as token:
+    with open(appdir+"/token","r") as token:
         client.run(token.read())
 except:
     try:
         client.run(sys.argv[1])
     except:
-        with open(os.path.dirname(__file__)+"/token","a") as token:
+        with open(appdir+"/token","a") as token:
             token.write("")
         print("tokenがありません")
